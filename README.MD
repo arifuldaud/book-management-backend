@@ -119,7 +119,9 @@ This project is currently under development. More features and API endpoints wil
 
 **DaudBD**
 
-GitHub: [DaudBD](https://github.com/DaudBD)
+GitHub: [DaudBD](https://github.com/arifuldaud)
+
+WebSite:[DaudBD](https://daudbd.com)
 
 ---
 

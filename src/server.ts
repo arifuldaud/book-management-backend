@@ -2,6 +2,7 @@ import app from "./app";
 import config from "./config";
 
 import {pool} from "./config/db"
+import { initDatabase } from "./config/initDB";
 
 const startServer = async() => {
     
@@ -10,7 +11,10 @@ const startServer = async() => {
 const time = await pool.query("SELECT NOW()")
       
      console.log("Database Connected:", time.rows[0]);
-        app.listen(config.port, () => {
+      
+     initDatabase()
+     
+     app.listen(config.port, () => {
             console.log(`Server Is Running On: ${config.port}`);
         });
     } catch (error) {

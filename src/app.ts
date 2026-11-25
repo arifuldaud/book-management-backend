@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import authRouter from "./modules/auth/auth.routes";
+import bookRouter from "./modules/books/book.routes";
 
 const app = express();
 
@@ -17,5 +18,5 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth",authRouter);
 
-
+app.use("/api/book",bookRouter);
 export default app;

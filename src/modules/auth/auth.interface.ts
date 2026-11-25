@@ -6,5 +6,6 @@ export interface IUser {
     id: number,
     role: string,
     password: string,
-
+    created_at: Date;
+    updated_at: Date;
 }

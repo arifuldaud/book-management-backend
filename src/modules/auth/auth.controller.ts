@@ -3,19 +3,15 @@ import bcrypt from "bcryptjs"
 import { passwordHelpers } from "../../utils/passwordHepler";
 import { pool } from "../../config/db";
 import { Result } from "pg";
+import { authService } from "./auth.service";
 
 const register:RequestHandler = async (req,res,next)=>{
  try {
     
 const {name,password,email,role} = req.body;
 
-const hashedPassword = passwordHelpers.hashPassword(password);
-const result = await pool.query(
-    `INSERT INTO users(name, email, password, role)
-     VALUES($1, $2, $3, $4)`,
-    [name, email, hashedPassword, role]
-);
-console.log({result},{depth:null})
+const result =await authService.register(req.body)
+//console.log({result:result.rows[0]},{depth:null})
 
  res.send({
     message:"User create Succesfully",

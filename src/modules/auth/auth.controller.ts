@@ -10,9 +10,12 @@ const register:RequestHandler = async (req,res,next)=>{
 const {name,password,email,role} = req.body;
 
 const hashedPassword = passwordHelpers.hashPassword(password);
-
-const result =await pool.query(`(INSERT INTO users(name,email,password,role) VALUES($1,$2,$3,$4)`,
-    [name,email,hashedPassword,role]);
+const result = await pool.query(
+    `INSERT INTO users(name, email, password, role)
+     VALUES($1, $2, $3, $4)`,
+    [name, email, hashedPassword, role]
+);
+console.log({result},{depth:null})
 
  res.send({
     message:"User create Succesfully",
@@ -32,4 +35,4 @@ const result =await pool.query(`(INSERT INTO users(name,email,password,role) VAL
 
 export const authcontroller ={
     register
-}
+}  

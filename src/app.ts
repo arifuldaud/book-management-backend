@@ -1,9 +1,17 @@
 import express from "express";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors({
+    origin: "http://localhost:3000"
+}));
 
-app.get("/",(req,res) =>{
-    res.send({Message:"Hello World!"});
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+    res.send({ message: "Hello World!" });
+});
+
 export default app;

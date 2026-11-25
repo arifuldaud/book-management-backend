@@ -5,9 +5,9 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-  "build": "tsc",
-  "start": "node dist/app.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,9 @@
     "typescript": "^7.0.2"
   },
   "devDependencies": {
-    "@types/node": "^26.6.7"
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.7",
+    "tsx": "^4.23.15"
   }
 }

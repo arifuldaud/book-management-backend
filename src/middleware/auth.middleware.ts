@@ -11,9 +11,14 @@ const verifyToken:RequestHandler = async(req,res,next) =>{
     try {
         const decoded = jwtHelpers.verifyToken(authHeader);
 
-        
+        console.log({decoded})
+
     } catch (error) {
         throw new Error("Invalid or Expired Token")
     }
 
+}
+
+export const authmiddleware = {
+    verifyToken,
 }

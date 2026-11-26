@@ -1,6 +1,7 @@
 import { constants } from "buffer";
 import { pool } from "../../config/db";
 import { IBook } from "./book.interface";
+import { Result } from 'pg';
 
 
 
@@ -16,14 +17,73 @@ return result.rows[0];
 
 };
 
+const getBooks = async(search:string) => {
+    
+   let sql = `SELECT * FROM books`;
+let params: string[] = [];
+
+if (search) {
+    sql = `
+        SELECT * FROM books
+        WHERE title ILIKE $1
+        OR description ILIKE $1
+    `;
+
+    params = [`%${search}%`];
+}
+
+const result = await pool.query(sql, params);
 
 
-const getBooks = async(serach:string) => {
-    const result =await pool.query(`SELECT * FROM books`,);
 
     return result.rows[0];
 }
 
+//Updated Book
+const updateBook = async (id: string, payload: Partial<IBook>) => {
+    const {
+        title,
+        description,
+        author,
+        isbn,
+        total_copies,
+        available_copies
+    } = payload;
+
+    const result = await pool.query(
+        `UPDATE books
+         SET title = COALESCE($1, title),
+             description = COALESCE($2, description),
+             author = COALESCE($3, author),
+             isbn = COALESCE($4, isbn),
+             total_copies = COALESCE($5, total_copies),
+             available_copies = COALESCE($6, available_copies),
+             updated_at = CURRENT_TIMESTAMP
+         WHERE id = $7
+         RETURNING *`,
+        [
+            title ?? null,
+            description ?? null,
+            author ?? null,
+            isbn ?? null,
+            total_copies ?? null,
+            available_copies ?? null,
+            id
+        ]
+    );
+
+    return result.rows[0];
+};
+
+
+//Delete Book 
+
+const deleteBook = async(id:string) =>{
+    const result = await pool.query(`DELETE FROM books WHERE id=$1`,[id]);
+    return result.rows;
+};
+
 export const bookService ={
-    createBook,getBooks,
+    createBook,getBooks,updateBook,deleteBook,
+    
 }

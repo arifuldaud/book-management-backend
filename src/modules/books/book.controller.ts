@@ -20,4 +20,24 @@ try {
 }
 }
 
-export const bookcontroller = {createBook};
+
+const getBooks:RequestHandler = async(req,res) => {
+try {
+    const result = await bookService.getBooks(req.query.search as string);
+
+    res.status(201).send({
+        message: "Book Retrived Successfully",
+        data: result,
+    });
+
+} catch (error: unknown) {
+    res.status(500).send({
+        message: error instanceof Error
+            ? error.message
+            : "Something Went Wrong",
+    });
+}
+}
+
+
+export const bookcontroller = {createBook,getBooks};

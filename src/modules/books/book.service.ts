@@ -16,6 +16,14 @@ return result.rows[0];
 
 };
 
+
+
+const getBooks = async(serach:string) => {
+    const result =await pool.query(`SELECT * FROM books`,);
+
+    return result.rows[0];
+}
+
 export const bookService ={
-    createBook,
+    createBook,getBooks,
 }
